@@ -2,7 +2,6 @@ const path = require('path');
 const router = require('express').Router();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
-const { userInfo } = require('os');
 
 passport.use(
   new GoogleStrategy(
