@@ -2,6 +2,7 @@ const path = require('path');
 const router = require('express').Router();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
+const User = require('../models/UserModel');
 
 passport.use(
   new GoogleStrategy(
@@ -11,26 +12,25 @@ passport.use(
       clientSecret: process.env.GOOGLE_SECRET,
     },
     async (accessToken, refreshToken, profile, done) => {
-      let customer = await Customer.findOne({ googleId: profile.id });
-      if (!customer) {
-        res.locals.isNewCustomer = true;
+      let user = await User.findOne({ googleId: profile.id });
+      if (!user) {
         const {
           id: googleId,
           displayName: username,
-          name: { familyName: lastname, givenName: firstname },
+          name: { familyName: lastName, givenName: firstName },
           _json: { email },
         } = profile;
-        customer = Customer.create({
+        user = User.create({
           googleId,
           username,
           email,
-          firstname,
-          lastname,
+          firstName,
+          lastName,
           ingredients: [],
           favorites: [],
         });
       }
-      return done(err, customer);
+      return done(user);
     }
   )
 );
