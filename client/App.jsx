@@ -1,17 +1,19 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Login from './components/Login';
+import Navbar from './components/Navbar'
+import IngredientSearch from './components/IngredientSearch';
 
 const App = props => {
     return (
         <div className="router">
             <main>
+                <Navbar/>
                 <Switch>
                     <Route
                         exact
                         path="/"
-                        component={Login}
+                        component={IngredientSearch}
                     />
                 </Switch>
             </main>
