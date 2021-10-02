@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Login from './components/Login';
+import IngredientSearch from './components/IngredientSearch';
 
 const App = props => {
     return (
@@ -11,7 +11,7 @@ const App = props => {
                     <Route
                         exact
                         path="/"
-                        component={Login}
+                        component={IngredientSearch}
                     />
                 </Switch>
             </main>
