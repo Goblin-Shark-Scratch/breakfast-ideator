@@ -5,12 +5,20 @@ const GoogleStrategy = require('passport-google-oauth20');
 const User = require('../models/UserModel');
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  try {
+    done(null, user.id);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-passport.deserializeUser(async (user, done) => {
-  const user = User.findById(id);
-  done(null, user);
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = User.findById(id);
+    done(null, user);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 passport.use(
@@ -30,7 +38,7 @@ passport.use(
             name: { familyName: lastName, givenName: firstName },
             _json: { email },
           } = profile;
-          user = User.create({
+          user = await User.create({
             googleId,
             username,
             email,
@@ -42,7 +50,8 @@ passport.use(
         }
         return done(null, user);
       } catch (err) {
-        return done(err, user);
+        console.log(err);
+        return done(err);
       }
     }
   )
@@ -67,7 +76,7 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect('/');
+    res.send(req.user);
   }
 );
 
