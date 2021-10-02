@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Goblin-Shark-Scratch/main#readme",
   "dependencies": {
+    "cookie-session": "^1.4.0",
     "dotenv": "^10.0.0",
     "express": "^4.16.3",
     "mongoose": "^6.0.8",

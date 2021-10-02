@@ -4,6 +4,15 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const User = require('../models/UserModel');
 
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (user, done) => {
+  const user = User.findById(id);
+  done(null, user);
+});
+
 passport.use(
   new GoogleStrategy(
     {
@@ -12,25 +21,29 @@ passport.use(
       clientSecret: process.env.GOOGLE_SECRET,
     },
     async (accessToken, refreshToken, profile, done) => {
-      let user = await User.findOne({ googleId: profile.id });
-      if (!user) {
-        const {
-          id: googleId,
-          displayName: username,
-          name: { familyName: lastName, givenName: firstName },
-          _json: { email },
-        } = profile;
-        user = User.create({
-          googleId,
-          username,
-          email,
-          firstName,
-          lastName,
-          ingredients: [],
-          favorites: [],
-        });
+      try {
+        let user = await User.findOne({ googleId: profile.id });
+        if (!user) {
+          const {
+            id: googleId,
+            displayName: username,
+            name: { familyName: lastName, givenName: firstName },
+            _json: { email },
+          } = profile;
+          user = User.create({
+            googleId,
+            username,
+            email,
+            firstName,
+            lastName,
+            ingredients: [],
+            favorites: [],
+          });
+        }
+        return done(null, user);
+      } catch (err) {
+        return done(err, user);
       }
-      return done(user);
     }
   )
 );
