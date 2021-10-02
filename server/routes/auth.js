@@ -26,6 +26,8 @@ passport.use(
           email,
           firstname,
           lastname,
+          ingredients: [],
+          favorites: [],
         });
       }
       return done(err, customer);
