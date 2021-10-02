@@ -4,6 +4,23 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const User = require('../models/UserModel');
 
+passport.serializeUser((user, done) => {
+  try {
+    done(null, user.id);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = User.findById(id);
+    done(null, user);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 passport.use(
   new GoogleStrategy(
     {
@@ -12,25 +29,30 @@ passport.use(
       clientSecret: process.env.GOOGLE_SECRET,
     },
     async (accessToken, refreshToken, profile, done) => {
-      let user = await User.findOne({ googleId: profile.id });
-      if (!user) {
-        const {
-          id: googleId,
-          displayName: username,
-          name: { familyName: lastName, givenName: firstName },
-          _json: { email },
-        } = profile;
-        user = User.create({
-          googleId,
-          username,
-          email,
-          firstName,
-          lastName,
-          ingredients: [],
-          favorites: [],
-        });
+      try {
+        let user = await User.findOne({ googleId: profile.id });
+        if (!user) {
+          const {
+            id: googleId,
+            displayName: username,
+            name: { familyName: lastName, givenName: firstName },
+            _json: { email },
+          } = profile;
+          user = await User.create({
+            googleId,
+            username,
+            email,
+            firstName,
+            lastName,
+            ingredients: [],
+            favorites: [],
+          });
+        }
+        return done(null, user);
+      } catch (err) {
+        console.log(err);
+        return done(err);
       }
-      return done(user);
     }
   )
 );
@@ -54,7 +76,7 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect('/');
+    res.send(req.user);
   }
 );
 
