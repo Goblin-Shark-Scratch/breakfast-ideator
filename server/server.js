@@ -1,7 +1,9 @@
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const app = express();
 const ideatorRouter = require('./routes/api');
+const authRouter = require('./routes/auth.js');
 const PORT = 3000;
 
 
@@ -20,6 +22,8 @@ console.log('testing to see if this works'),
 // add route handler   
 app.use('/api', ideatorRouter) 
 
+// route handler for authentication
+app.use('/auth', authRouter);
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));

@@ -4,26 +4,36 @@ const router = express.Router()
 
 // example: router.get("/page")
 
-router.get('/signup',
+router.get('/recipes',
   (req, res) => {
-    res.status(200).json(res.locals.characters);
+    res.status(200).json(res.locals);
+  }
+);
+
+router.get('/ingredients',
+  (req, res) => {
+    res.status(200).json(res.locals);
+  }
+);
+
+router.put('/ingredients',
+  (req, res) => {
+    res.status(200).json(res.locals);
   }
 );
 
 
-router.get('/signup',
+router.get('/favorites',
   (req, res) => {
-    res.status(200).json(res.locals.characters);
+    res.status(200).json(res.locals);
   }
 );
 
-
-router.get('/signup',
+router.put('/favorites',
   (req, res) => {
-    res.status(200).json(res.locals.characters);
+    res.status(200).json(res.locals);
   }
 );
-
 
 
 
