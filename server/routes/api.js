@@ -1,41 +1,39 @@
-const express = require("express")
-const router = express.Router()
-
+const express = require('express');
+const authController = require('../controllers/authController');
+const mainController = require('../controllers/mainController');
+const router = express.Router();
 
 // example: router.get("/page")
+console.log(mainController);
 
-router.get('/recipes',
+router.get('/recipes', authController.sessionRequired, (req, res) => {
+  res.status(200).json(res.locals);
+});
+
+router.get(
+  '/ingredients',
+  authController.sessionRequired,
+  mainController.fetchIngredients,
   (req, res) => {
-    res.status(200).json(res.locals);
+    res.status(200).json(res.locals.ingredients);
   }
 );
 
-router.get('/ingredients',
+router.put(
+  '/ingredients',
+  authController.sessionRequired,
+  mainController.updateIngredients,
   (req, res) => {
-    res.status(200).json(res.locals);
+    res.status(200).json(res.locals.ingredients);
   }
 );
 
-router.put('/ingredients',
-  (req, res) => {
-    res.status(200).json(res.locals);
-  }
-);
+router.get('/favorites', authController.sessionRequired, (req, res) => {
+  res.status(200).json(res.locals);
+});
 
+router.post('/favorites', authController.sessionRequired, (req, res) => {
+  res.status(200).json(res.locals);
+});
 
-router.get('/favorites',
-  (req, res) => {
-    res.status(200).json(res.locals);
-  }
-);
-
-router.put('/favorites',
-  (req, res) => {
-    res.status(200).json(res.locals);
-  }
-);
-
-
-
-
-module.exports = router
+module.exports = router;

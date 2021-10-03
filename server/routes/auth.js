@@ -14,7 +14,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = User.findById(id);
+    const user = await User.findById(id);
     done(null, user);
   } catch (err) {
     console.log(err);
@@ -44,7 +44,7 @@ passport.use(
             email,
             firstName,
             lastName,
-            ingredients: [],
+            ingredients: {},
             favorites: [],
           });
         }
@@ -62,7 +62,8 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  res.status(200).send();
+  req.logout();
+  res.redirect('/');
 });
 
 router.get(
@@ -76,8 +77,12 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.send(req.user);
+    res.redirect('/auth/test');
   }
 );
+
+router.get('/test', (req, res) => {
+  res.json(req.user);
+});
 
 module.exports = router;
