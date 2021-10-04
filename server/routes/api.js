@@ -14,6 +14,10 @@ router.get(
   }
 );
 
+router.get('/recipes/:id', mainController.getMoreRecipeInfo, (req, res) => {
+  res.status(200).json(res.locals.instructions);
+});
+
 router.get(
   '/ingredients',
   authController.sessionRequired,
