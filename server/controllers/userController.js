@@ -18,5 +18,12 @@ module.exports = {
   query: (text, params, callback) => {
     console.log('executed query', text);
     return pool.query(text, params, callback);
+  },
+  addIngredient: (req, res, next) => {
+    //Here we have to add the code to add the ingredient into the user's "pantry"
+    //The ingredient to be add will be stored in res.locals.ingredientToAdd, as this will be called after the apiController/validateIngredient middleware
+    //req.body.ingredient holds the ingredient name, req.body.quantity holds the quantity
+    //The request is made on line 26 of IngredientSearch.jsx
+    next();
   }
 };

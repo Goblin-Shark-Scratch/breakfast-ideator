@@ -5,7 +5,7 @@ const app = express();
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const ideatorRouter = require('./routes/api');
-const authRouter = require('./routes/auth.js');
+//const authRouter = require('./routes/auth.js');
 const PORT = 3000;
 
 // handle parsing request body
@@ -27,11 +27,11 @@ app.use(express.static(path.resolve(__dirname, '../dist')));
 
 // add get and post requests related to the goal tracker here.
 console.log('testing to see if this works'),
-  // add route handler
-  app.use('/api', ideatorRouter);
+// add route handler
+app.use('/api', ideatorRouter);
 
 // route handler for authentication
-app.use('/auth', authRouter);
+//app.use('/auth', authRouter);
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) =>
