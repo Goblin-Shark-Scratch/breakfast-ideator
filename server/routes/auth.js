@@ -44,8 +44,6 @@ passport.use(
             email,
             firstName,
             lastName,
-            ingredients: {},
-            favorites: [],
           });
         }
         return done(null, user);
