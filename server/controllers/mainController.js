@@ -54,11 +54,20 @@ mainController.fetchIngredients = (req, res, next) => {
 // { eggs: 12 }
 
 // update user's ingredients inventory
-mainController.updateIngredients = (req, res, next) => {
-  req.user.ingredients = { ...req.user.ingredients, ...req.body };
-  req.user.save(); // consider await ?
-  res.locals.ingredients = req.user.ingredients;
-  next();
+mainController.updateIngredients = async (req, res, next) => {
+  try {
+    const { ingredient, quantity } = req.body;
+    res.locals.ingredients = { ...req.user.ingredients };
+    res.locals.ingredients[ingredient] = +quantity;
+    req.user.ingredients = res.locals.ingredients;
+    await req.user.save(); // consider await ?
+
+    next();
+  } catch (err) {
+    return next({
+      log: `mainController.updateIngredients ERROR: ${err}`,
+    });
+  }
 };
 
 // get the favorites from the fav history
