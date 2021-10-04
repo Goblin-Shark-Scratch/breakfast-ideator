@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import qs from 'qs';
-import { NoEmitOnErrorsPlugin } from 'webpack';
 
 class RecipeDetails extends Component {
     constructor(props){
@@ -10,6 +9,7 @@ class RecipeDetails extends Component {
     }
     
     componentDidMount(){
+        console.log("adad")
         this.setState();
         const queryParams = qs.parse(this.props.location.search, {ignoreQueryPrefix: true});
         axios.get(`/api/recipes/${queryParams.id}`)
@@ -37,6 +37,10 @@ class RecipeDetails extends Component {
                 alignItems: 'center',
                 height: '100%'
             }}>
+                <iframe src={this.state.recipe.spoonacularSourceUrl} style={{
+                    width: '100%',
+                    height: '100vh'
+                }}/>
             </div>
         )
     }
