@@ -9,17 +9,36 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import ingredients from '../data/ingredients';
+import axios from 'axios';
 
 class IngredientSearch extends Component {
     constructor(props) {
         super(props);
-        this.state = {query: "", searchResults: []};
+        this.state = {query: '', searchResults: []};
         this.addIngredient = this.addIngredient.bind(this);
         this.searchResults = this.searchResults.bind(this);
     };
     
     addIngredient(el){
-        console.log(el);
+        const tableRow = el.target.parentElement.parentElement.parentElement;
+        const ingredientToAdd = tableRow.querySelector('b').innerHTML;
+        const quantity = tableRow.querySelector('input').value;
+        const addButton = tableRow.querySelector('button');
+        addButton.innerText = 'Adding....'
+        axios.put('/api/ingredientss', {
+            ingredient: ingredientToAdd,
+            quantity: quantity
+        })
+        .then(res => {
+            addButton.innerText = 'Success!!';
+        })
+        .catch(err => {
+            addButton.innerText = 'Error';
+            console.error('Error adding ingredient to stock');
+        }).finally(() => {
+            setTimeout(() => {addButton.innerText = 'ADD INGREDIENT'}, 1500);
+        })
+        console.log(ingredientToAdd);
     }
 
     searchResults(){
@@ -50,10 +69,10 @@ class IngredientSearch extends Component {
                                 display: 'flex',
                                 justifyContent: 'flex-end'
                             }}>
-                                <TextField id={`${key}Quantity`} label="Quantity" variant="filled" style={{
+                                <TextField id={`${key}Quantity`} label="Quantity" type="number" variant="filled" style={{
                                     paddingRight: '1em'
                                 }}/>
-                                <Button variant="contained">Add Ingredient</Button>
+                                <Button variant="contained" onClick={this.addIngredient}>Add Ingredient</Button>
                             </div>
                         </TableCell>
                     </TableRow>    

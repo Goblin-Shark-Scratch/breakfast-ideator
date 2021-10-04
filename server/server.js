@@ -5,7 +5,7 @@ const app = express();
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const ideatorRouter = require('./routes/api');
-const authRouter = require('./routes/auth.js');
+//const authRouter = require('./routes/auth.js');
 const PORT = 3000;
 
 // handle parsing request body
@@ -31,7 +31,7 @@ app.use(express.static(path.resolve(__dirname, '../dist')));
 app.use('/api', ideatorRouter);
 
 // route handler for authentication
-app.use('/auth', authRouter);
+//app.use('/auth', authRouter);
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) =>
