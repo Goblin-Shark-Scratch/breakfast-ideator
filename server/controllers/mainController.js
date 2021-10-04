@@ -32,7 +32,7 @@ mainController.searchRecipe = async (req, res, next) => {
 
 mainController.getMoreRecipeInfo = async (req, res, next) => {
   try {
-    const baseUrl = `https://api.spoonacular.com/recipes/${req.params.id}/analyzedInstructions`;
+    const baseUrl = `https://api.spoonacular.com/recipes/${req.params.id}/information`;
     const apiKeyAsParam = `apiKey=${process.env.API_KEY}`;
     const response = await fetch(`${baseUrl}?${apiKeyAsParam}`);
     res.locals.instructions = await response.json();
