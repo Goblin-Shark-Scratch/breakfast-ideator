@@ -17,11 +17,11 @@ mongoose
 // setting up fields for the schema with datatype
 const userSchema = new Schema({
   googleId: { type: String, required: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  firstName: String,
+  lastName: String,
   email: { type: String, required: true },
   password: String,
-  ingredients: [],
+  ingredients: {},
   favorites: [],
 });
 
