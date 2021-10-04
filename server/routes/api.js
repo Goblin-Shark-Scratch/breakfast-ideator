@@ -4,11 +4,15 @@ const mainController = require('../controllers/mainController');
 const router = express.Router();
 
 // example: router.get("/page")
-console.log(mainController);
 
-router.get('/recipes', authController.sessionRequired, (req, res) => {
-  res.status(200).json(res.locals);
-});
+router.get(
+  '/recipes',
+  authController.sessionRequired,
+  mainController.searchRecipe,
+  (req, res) => {
+    res.status(200).json(res.locals.recipes);
+  }
+);
 
 router.get(
   '/ingredients',
@@ -28,12 +32,31 @@ router.put(
   }
 );
 
-router.get('/favorites', authController.sessionRequired, (req, res) => {
-  res.status(200).json(res.locals);
-});
+router.get(
+  '/favorites',
+  authController.sessionRequired,
+  mainController.getFavorites,
+  (req, res) => {
+    res.status(200).json(res.locals.favorites);
+  }
+);
 
-router.post('/favorites', authController.sessionRequired, (req, res) => {
-  res.status(200).json(res.locals);
-});
+router.post(
+  '/favorites',
+  authController.sessionRequired,
+  mainController.addFavorite,
+  (req, res) => {
+    res.status(200).json(res.locals.favorites);
+  }
+);
+
+router.delete(
+  '/favorites',
+  authController.sessionRequired,
+  mainController.removeFavorite,
+  (req, res) => {
+    res.status(200).json(res.locals.favorites);
+  }
+);
 
 module.exports = router;
