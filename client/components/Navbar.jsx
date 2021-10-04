@@ -70,7 +70,13 @@ class Navbar extends Component {
               component="div"
               sx={{ flexGrow: 1, textAlign: 'center' }}
             >
+              <Link
+                to="/"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
               BreakFASTic!
+              </Link>
+
             </Typography>
             <Button color="inherit" href="/auth/google">
               Login
