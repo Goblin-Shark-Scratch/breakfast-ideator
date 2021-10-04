@@ -29,7 +29,6 @@ class RecipeSearch extends Component {
               key={recipe.title}
               image={recipe.image}
               title={recipe.title}
-              id={recipe.id}
             />
           );
         });
@@ -44,26 +43,46 @@ class RecipeSearch extends Component {
 
   render() {
     return (
+      <div>
+       <div
+       style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+       >
+       <Button variant="contained" onClick={this.searchRecipes}>
+          Find recipes
+        </Button>
+        <Divider orientation="horizontal" flexItem />
+        </div>
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          flexWrap: 'wrap',
+          // justifyContent: 'space-between'
+          // display: 'grid',
+          // gridTemplate: 'auto / repeat(auto-fit, 300px)',
+          // maxWidth: '1500px'
         }}
       >
-        <Button variant="contained" onClick={this.searchRecipes}>
-          Find recipes
-        </Button>
-        <Divider orientation="horizontal" flexItem />
         <Stack
-          spacing={2}
-          direction="column"
+          display="flex"
+          spacing={0}
+          direction="row"
           alignItems="center"
-          justifyContent="flex-start"
+          justifyContent="space-evenly"
+          flexWrap='wrap'
           divider={<Divider orientation="horizontal" flexItem />}
+          width= "1800px"
+	        height="1000px"
         >
           {this.state.recipes}
         </Stack>
+      </div>
+
       </div>
     );
   }
