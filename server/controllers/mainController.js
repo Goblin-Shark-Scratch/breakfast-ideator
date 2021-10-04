@@ -6,12 +6,10 @@ const mainController = {};
 
 mainController.searchRecipe = async (req, res, next) => {
   // connect to API to find recipes matching a query
-  // ranking 2 orders by least missing ingredients
-  // ignore pantry ignores common pantry items like water, flour, sugar, etc.
   try {
     const OPTIONS = {
-      ranking: 2,
-      ignorePantry: true,
+      ranking: 2, // ranking 2 orders by least missing ingredients
+      ignorePantry: true, // ignore pantry ignores common pantry items like water, flour, sugar, etc.
     };
 
     const baseUrl = 'https://api.spoonacular.com/recipes/findByIngredients';
