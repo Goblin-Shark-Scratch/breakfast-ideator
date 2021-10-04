@@ -1,31 +1,21 @@
 const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-const convertIngredientsToParams = (ingredients) => {
-  let res = '';
-  for (const [ingredient, quantity] of Object.entries(ingredients)) {
-    res += `+${ingredient},`;
-  }
-  return res.slice(1, -1);
-};
-
 const mainController = {};
 // import API
 
 mainController.searchRecipe = async (req, res, next) => {
   // connect to API to find recipes matching a query
-  // ranking 2 orders by least missing ingredients
-  // ignore pantry ignores common pantry items like water, flour, sugar, etc.
   try {
     const OPTIONS = {
-      ranking: 2,
-      ignorePantry: true,
+      ranking: 2, // ranking 2 orders by least missing ingredients
+      ignorePantry: true, // ignore pantry ignores common pantry items like water, flour, sugar, etc.
     };
 
     const baseUrl = 'https://api.spoonacular.com/recipes/findByIngredients';
     const apiKeyAsParam = `apiKey=${process.env.API_KEY}`;
     const ingredientsAsParams =
-      'ingredients=' + convertIngredientsToParams(req.user.ingredients);
+      'ingredients=' + Object.keys(req.user.ingredients).join(',+');
     const optionsAsParams = new URLSearchParams(OPTIONS).toString();
 
     const response = await fetch(
@@ -36,6 +26,20 @@ mainController.searchRecipe = async (req, res, next) => {
   } catch (err) {
     return next({
       log: `mainController.searchRecipes ERROR: ${err}`,
+    });
+  }
+};
+
+mainController.getMoreRecipeInfo = async (req, res, next) => {
+  try {
+    const baseUrl = `https://api.spoonacular.com/recipes/${req.params.id}/analyzedInstructions`;
+    const apiKeyAsParam = `apiKey=${process.env.API_KEY}`;
+    const response = await fetch(`${baseUrl}?${apiKeyAsParam}`);
+    res.locals.instructions = await response.json();
+    next();
+  } catch (err) {
+    return next({
+      log: `mainController.getMoreRecipeInfo ERROR: ${err}`,
     });
   }
 };

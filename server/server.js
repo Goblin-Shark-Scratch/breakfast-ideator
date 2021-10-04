@@ -10,6 +10,8 @@ const PORT = 3000;
 
 // handle parsing request body
 app.use(express.json());
+
+// enable sessions using passport.js middleware
 app.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
@@ -25,9 +27,7 @@ app.use(passport.session());
  */
 app.use(express.static(path.resolve(__dirname, '../dist')));
 
-// add get and post requests related to the goal tracker here.
-console.log('testing to see if this works'),
-// add route handler
+// add route handler for api
 app.use('/api', ideatorRouter);
 
 // route handler for authentication
