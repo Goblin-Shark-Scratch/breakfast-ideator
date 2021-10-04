@@ -23,13 +23,14 @@ class RecipeSearch extends Component {
         axios.get('/api/recipes')
             .then(res => {
                 res.data.forEach(recipe => {
-                    results.push(<Recipe key={recipe.title} image={recipe.image} title={recipe.title}/>)
+                    results.push(<Recipe key={recipe.title} image={recipe.image} title={recipe.title} id={recipe.id}/>)
                 })
             })
             .catch(err => {
                 console.log(err)
             }).finally(() => {
                 this.setState({recipes: results})
+                console.log(results);
             })
     }
 
