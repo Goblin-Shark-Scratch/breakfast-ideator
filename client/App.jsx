@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar'
-import IngredientSearch from './components/IngredientSearch';
+import RecipeSearch from './components/RecipeSearch';
 
 const App = props => {
     return (
@@ -13,7 +13,7 @@ const App = props => {
                     <Route
                         exact
                         path="/"
-                        component={IngredientSearch}
+                        component={RecipeSearch}
                     />
                 </Switch>
             </main>

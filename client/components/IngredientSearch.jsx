@@ -25,7 +25,7 @@ class IngredientSearch extends Component {
         const quantity = tableRow.querySelector('input').value;
         const addButton = tableRow.querySelector('button');
         addButton.innerText = 'Adding....'
-        axios.put('/api/ingredientss', {
+        axios.put('/api/ingredients', {
             ingredient: ingredientToAdd,
             quantity: quantity
         })
@@ -38,18 +38,11 @@ class IngredientSearch extends Component {
         }).finally(() => {
             setTimeout(() => {addButton.innerText = 'ADD INGREDIENT'}, 1500);
         })
-        console.log(ingredientToAdd);
     }
 
     searchResults(){
-        const query = document.getElementById('search').value
-        const results = []
-
-        const ingredientStyle = {
-            display: 'flex',
-            justifyContent: 'space-between'
-        }
-
+        const query = document.getElementById('search').value;
+        const results = [];
 
         ingredients.forEach((value, key) => {
             if(key.startsWith(query)){
