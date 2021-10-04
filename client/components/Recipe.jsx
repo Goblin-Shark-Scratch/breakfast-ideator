@@ -22,7 +22,8 @@ function Recipe(props) {
                 <Link
                 to={{
                     pathname: '/recipe',
-                    search: `?id=${props.id}`
+                    search: `?id=${props.id}`,
+                    state: {test: 'test'}
                 }}>
                 <input type="image" src={props.image} alt={props.title}></input>
                 </Link>

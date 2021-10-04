@@ -29,6 +29,7 @@ class RecipeSearch extends Component {
               key={recipe.title}
               image={recipe.image}
               title={recipe.title}
+              id={recipe.id}
             />
           );
         });
