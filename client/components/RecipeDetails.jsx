@@ -9,8 +9,6 @@ class RecipeDetails extends Component {
     }
     
     componentDidMount(){
-        console.log("adad")
-        this.setState();
         const queryParams = qs.parse(this.props.location.search, {ignoreQueryPrefix: true});
         axios.get(`/api/recipes/${queryParams.id}`)
         .then(res => {
