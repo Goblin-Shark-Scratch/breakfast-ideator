@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
   constructor(props) {
@@ -50,9 +51,19 @@ class Navbar extends Component {
                 'aria-labelledby': 'basic-button',
               }}
             >
-              <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+              <Link
+                to="/pantry"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <MenuItem onClick={this.handleClose}>Pantry</MenuItem>
+              </Link>
               <MenuItem onClick={this.handleClose}>My account</MenuItem>
-              <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+              <Link
+                to="/logout"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+              </Link>
             </Menu>
             <Typography
               variant="h6"
@@ -61,7 +72,7 @@ class Navbar extends Component {
             >
               BreakFASTic!
             </Typography>
-            <Button color="inherit" href="/auth/login">
+            <Button color="inherit" href="/auth/google">
               Login
             </Button>
           </Toolbar>
