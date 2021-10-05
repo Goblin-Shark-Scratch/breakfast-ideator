@@ -58,12 +58,12 @@ class Navbar extends Component {
                 <MenuItem onClick={this.handleClose}>Pantry</MenuItem>
               </Link>
               <MenuItem onClick={this.handleClose}>My account</MenuItem>
-              <Link
-                to="/logout"
+              <a
+                href="/auth/logout"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <MenuItem onClick={this.handleClose}>Logout</MenuItem>
-              </Link>
+              </a>
             </Menu>
             <Typography
               variant="h6"

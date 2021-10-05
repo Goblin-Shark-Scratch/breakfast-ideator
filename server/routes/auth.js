@@ -1,9 +1,9 @@
-const path = require('path');
 const router = require('express').Router();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const User = require('../models/UserModel');
 
+// with response, sends users a cookie containing their user id
 passport.serializeUser((user, done) => {
   try {
     done(null, user.id);
@@ -12,6 +12,7 @@ passport.serializeUser((user, done) => {
   }
 });
 
+// accepts user id cookie and attaches user object to req
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
@@ -32,12 +33,14 @@ passport.use(
       try {
         let user = await User.findOne({ googleId: profile.id });
         if (!user) {
+          // destruct google profile
           const {
             id: googleId,
             displayName: username,
             name: { familyName: lastName, givenName: firstName },
             _json: { email },
           } = profile;
+          //use google profile info to create new user in db
           user = await User.create({
             googleId,
             username,
@@ -54,10 +57,6 @@ passport.use(
     }
   )
 );
-
-router.get('/login', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '../../client/login.html'));
-});
 
 router.get('/logout', (req, res) => {
   req.logout();

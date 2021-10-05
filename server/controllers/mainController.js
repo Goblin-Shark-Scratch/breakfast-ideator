@@ -2,7 +2,6 @@ const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const mainController = {};
-// import API
 
 mainController.searchRecipe = async (req, res, next) => {
   // connect to API to find recipes matching a query
@@ -50,18 +49,14 @@ mainController.fetchIngredients = (req, res, next) => {
   next();
 };
 
-// { eggs: 1 }
-// { eggs: 12 }
-
 // update user's ingredients inventory
 mainController.updateIngredients = async (req, res, next) => {
   try {
     const { ingredient, quantity } = req.body;
-    res.locals.ingredients = { ...req.user.ingredients };
-    res.locals.ingredients[ingredient] = +quantity;
-    req.user.ingredients = res.locals.ingredients;
-    await req.user.save(); // consider await ?
-
+    req.user.ingredients[ingredient] = +quantity;
+    res.locals.ingredients = req.user.ingredients;
+    req.user.markModified('ingredients'); // changes wont save without this
+    await req.user.save();
     next();
   } catch (err) {
     return next({
@@ -77,23 +72,23 @@ mainController.getFavorites = (req, res, next) => {
 };
 
 // update the favorites array
-mainController.addFavorite = (req, res, next) => {
+mainController.addFavorite = async (req, res, next) => {
   req.user.favorites.push(req.body.favorite);
-  req.user.save();
+  await req.user.save();
   res.locals.favorites = req.user.favorites;
   next();
 };
 
-mainController.removeFavorite = (req, res, next) => {
+mainController.removeFavorite = async (req, res, next) => {
   req.user.favorites = req.user.favorites.filter(
     (fav) => fav !== req.body.favorite
   );
-  req.user.save();
+  await req.user.save();
   res.locals.favorites = req.user.favorites;
   next();
 };
 
-// get recently viewed recipes
+// TODO: get recently viewed recipes
 mainController.getRecents = (req, res, next) => {
   next();
 };
