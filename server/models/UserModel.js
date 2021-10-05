@@ -21,7 +21,7 @@ const userSchema = new Schema(
     firstName: String,
     lastName: String,
     email: { type: String, required: true },
-    password: String,
+    password: String, // first-party passwords currently not implemented
     ingredients: { type: Schema.Types.Mixed, default: {} },
     favorites: { type: Schema.Types.Mixed, default: [] },
   },

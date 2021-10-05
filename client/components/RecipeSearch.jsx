@@ -29,7 +29,7 @@ class RecipeSearch extends Component {
               key={recipe.title}
               image={recipe.image}
               title={recipe.title}
-              id={recip}
+              id={recipe.id}
             />
           );
         });
@@ -45,45 +45,44 @@ class RecipeSearch extends Component {
   render() {
     return (
       <div>
-       <div
-       style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-       >
-       <Button variant="contained" onClick={this.searchRecipes}>
-          Find recipes
-        </Button>
-        <Divider orientation="horizontal" flexItem />
-        </div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          // justifyContent: 'space-between'
-          // display: 'grid',
-          // gridTemplate: 'auto / repeat(auto-fit, 300px)',
-          // maxWidth: '1500px'
-        }}
-      >
-        <Stack
-          display="flex"
-          spacing={0}
-          direction="row"
-          alignItems="center"
-          justifyContent="space-evenly"
-          flexWrap='wrap'
-          divider={<Divider orientation="horizontal" flexItem />}
-          width= "1800px"
-	        height="1000px"
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
         >
-          {this.state.recipes}
-        </Stack>
-      </div>
-
+          <Button variant="contained" onClick={this.searchRecipes}>
+            Find recipes
+          </Button>
+          <Divider orientation="horizontal" flexItem />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            // justifyContent: 'space-between'
+            // display: 'grid',
+            // gridTemplate: 'auto / repeat(auto-fit, 300px)',
+            // maxWidth: '1500px'
+          }}
+        >
+          <Stack
+            display="flex"
+            spacing={0}
+            direction="row"
+            alignItems="center"
+            justifyContent="space-evenly"
+            flexWrap="wrap"
+            divider={<Divider orientation="horizontal" flexItem />}
+            width="1800px"
+            height="1000px"
+          >
+            {this.state.recipes}
+          </Stack>
+        </div>
       </div>
     );
   }

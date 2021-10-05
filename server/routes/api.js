@@ -20,6 +20,7 @@ router.put('/ingredients', mainController.updateIngredients, (req, res) => {
   res.status(200).json(res.locals.ingredients);
 });
 
+//TODO: implement favorites on the front-end
 router.get('/favorites', mainController.getFavorites, (req, res) => {
   res.status(200).json(res.locals.favorites);
 });
