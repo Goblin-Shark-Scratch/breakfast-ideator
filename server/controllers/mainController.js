@@ -2,8 +2,8 @@ const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const fs = require('fs');
 const path = require('path');
-const searchRecipeResponse = JSON.parse(fs.readFileSync(path.join(__dirname, './searchRecipe.json')));
-const getMoreRecipeInfoResponse = JSON.parse(fs.readFileSync(path.join(__dirname, './getMoreRecipeInfo.json')));
+const searchRecipeResponse = JSON.parse(fs.readFileSync(path.join(__dirname, './testResponses/searchRecipe.json')));
+const getMoreRecipeInfoResponse = JSON.parse(fs.readFileSync(path.join(__dirname, './testResponses/getMoreRecipeInfo.json')));
 
 const mainController = {};
 
