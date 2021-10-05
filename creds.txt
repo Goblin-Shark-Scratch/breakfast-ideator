@@ -1,0 +1,7 @@
+Database creds: username: Admin password: ThmzbzClXQ4oYiNo
+
+Database connection string: mongodb+srv://Admin:ThmzbzClXQ4oYiNo@cluster0.ujwji.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
+Oauth client ID: 898090017943-q1kgue9ti8tr21c6i7itp77ft43hd5r1.apps.googleusercontent.com
+
+Oauth client secret: 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
