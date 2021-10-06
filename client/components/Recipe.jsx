@@ -1,7 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+import { 
+    Favorite,
+    FavoriteBorder
+ } from '@mui/icons-material';
+ import Checkbox from '@mui/material/Checkbox'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -10,7 +15,21 @@ const Item = styled(Paper)(({ theme }) => ({
     fontSize: '1em'
 }));
 
-function Recipe(props) {
+const Recipe = (props) => {
+
+    // Handle making/removing a recipe as a favorite
+    const handleClick = (recipeID) => {
+        // Make call to server to add/remove recipe id in user favorites
+        fetch('/api/favorites',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({favorite: recipeID})
+        })
+            .then(res => res.json())
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+    }
+
     return (
         <Item>
             <div style={{
@@ -18,7 +37,12 @@ function Recipe(props) {
                 flexDirection: 'column',
                 justifyContent: 'center',
             }}>
-                <b>{props.title}</b>
+                <h3>{props.title}</h3>
+                <Checkbox 
+                    onChange={handleClick(props.id)}
+                    icon={<FavoriteBorder />} 
+                    checkedIcon={<Favorite />} 
+                />
                 <Link
                 to={{
                     pathname: '/recipe',
