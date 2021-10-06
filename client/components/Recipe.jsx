@@ -19,7 +19,7 @@ const Recipe = (props) => {
 
     // Handle making/removing a recipe as a favorite
     const handleClick = (recipeID) => {
-        // Make call to server to toggle recipe id in user favorites
+        // Make call to server to add/remove recipe id in user favorites
         fetch('/api/favorites',{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
