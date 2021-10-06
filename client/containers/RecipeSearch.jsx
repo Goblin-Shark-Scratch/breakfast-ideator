@@ -4,8 +4,7 @@ import React, { Component } from 'react';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 
-import Recipe from './Recipe';
-import axios from 'axios';
+// import Recipe from '../components/Recipe';
 import { ImageList } from '@mui/material';
 
 const RecipeSearch = (props) => {

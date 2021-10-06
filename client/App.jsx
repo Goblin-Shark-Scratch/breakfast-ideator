@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import LandingContainer from './components/LandingContainer';
-import RecipeSearch from './components/RecipeSearch';
+import RecipeSearch from './containers/RecipeSearch';
 import RecipeDetails from './components/RecipeDetails';
 import Pantry from './components/Pantry';
 import Recipe from './components/Recipe';
